@@ -24,7 +24,6 @@ from models import Result
 def index():
     errors = []
     results = {}
-    handle = None
     if request.method == "POST":
         # get url that the person has entered
         try:
@@ -65,7 +64,7 @@ def index():
             #     db.session.commit()
             # except:
             #     errors.append("Unable to add item to database.")
-    return render_template('index.html', errors=errors, results=generated, handle=handle)
+    return render_template('index.html', errors=errors, results=generated)
 
 
 if __name__ == '__main__':
