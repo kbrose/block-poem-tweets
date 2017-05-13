@@ -20,12 +20,17 @@ def generate(handle, n=1):
     user = api.get_user(handle)
     timeline = [tweet.text for tweet in user.timeline()]
 
+    ret = []
+
     for _ in range(n):
         tweet = random.choice(timeline)
-        print(tweet)
-        print('')
-        print(poem_tweets.make_poem(tweet))
-        print('\n\n')
+        ret.append((tweet, poem_tweets.make_poem(tweet)))
+    return ret
 
 if __name__ == '__main__':
-    generate(sys.argv[1])
+    out = generate(sys.argv[1])
+    for tweet, poem in out:
+        print(tweet)
+        print('')
+        print(poem)
+        print('\n\n')

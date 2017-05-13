@@ -59,7 +59,7 @@ def make_poem(tweet, verbose=False):
         if i in tweet_idxs:
             continue
         else:
-            og_tweet[i] = '*'
+            og_tweet[i] = '█'
 
     return ''.join(og_tweet)
 
