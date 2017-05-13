@@ -27,15 +27,14 @@ def index():
     if request.method == "POST":
         # get url that the person has entered
         try:
-            generated = poem_user.generate(request.form['handle'])
+            tweet, block = poem_user.generate(request.form['handle'])[0]
         except Exception as e:
             errors.append(
-                "Unable to get do the thing, try again." + str(e)
+                "Unable to get do the thing, try again.\n" + str(e)
             )
             return render_template('index.html', errors=errors)
-        if generated:
+        if block:
             results = [(tweet, block)]
-            handle=request.form['handle']
             # # text processing
             # raw = BeautifulSoup(r.text).get_text()
             # nltk.data.path.append('./nltk_data/')  # set the path
@@ -64,7 +63,7 @@ def index():
             #     db.session.commit()
             # except:
             #     errors.append("Unable to add item to database.")
-    return render_template('index.html', errors=errors, results=generated)
+    return render_template('index.html', errors=errors, results=results)
 
 
 if __name__ == '__main__':
