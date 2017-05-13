@@ -24,17 +24,19 @@ from models import Result
 def index():
     errors = []
     results = {}
+    handle = None
     if request.method == "POST":
         # get url that the person has entered
         try:
-            tweet, block = poem_user.generate(request.form['handle'])[0]
+            generated = poem_user.generate(request.form['handle'])
         except Exception as e:
             errors.append(
                 "Unable to get do the thing, try again.\n" + str(e)
             )
             return render_template('index.html', errors=errors)
-        if block:
+        if generated:
             results = [(tweet, block)]
+            handle=request.form['handle']
             # # text processing
             # raw = BeautifulSoup(r.text).get_text()
             # nltk.data.path.append('./nltk_data/')  # set the path
@@ -63,7 +65,7 @@ def index():
             #     db.session.commit()
             # except:
             #     errors.append("Unable to add item to database.")
-    return render_template('index.html', errors=errors, results=results)
+    return render_template('index.html', errors=errors, results=generated, handle=handle)
 
 
 if __name__ == '__main__':
