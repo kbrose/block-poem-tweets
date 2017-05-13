@@ -31,7 +31,7 @@ def index():
             generated = poem_user.generate(request.form['handle'])
         except Exception as e:
             errors.append(
-                "Unable to get do the thing, try again.\n" + str(e)
+                "Unable to get do the thing, try again." + str(e)
             )
             return render_template('index.html', errors=errors)
         if generated:
